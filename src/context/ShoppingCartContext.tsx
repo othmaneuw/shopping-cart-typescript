@@ -15,7 +15,8 @@ interface ShoppingCartContext {
   cartQuantity: number;
   openCart: () => void;
   closeCart: () => void;
-  cartItems : Cart[]
+  cartItems : Cart[];
+  clearCart : () => void;
 }
 
 export const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -69,6 +70,9 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProps) => {
   const cartQuantity = cartItems.reduce((quantity, item) => {
     return quantity + item.quantity;
   }, 0);
+  const clearCart = () =>{
+    setCartItems([]);
+  }
   useEffect(() => {
     console.log(cartItems);
   });
@@ -82,7 +86,8 @@ export const ShoppingCartProvider = ({ children }: ShoppingCartProps) => {
         cartQuantity,
         closeCart,
         openCart,
-        cartItems
+        cartItems,
+        clearCart
       }}
     >
       {children}
